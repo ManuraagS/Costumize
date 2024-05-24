@@ -1,0 +1,22 @@
+create a live bootable usb
+
+sdaG = partition in which grub is installed
+sdaR = root partition
+sdaH = home partition
+sdaS = swap parition
+
+mount /dev/sdaR /mnt
+
+mkdir /mnt/boot/efi
+mkdir /mnt/home
+
+mount /dev/sdaG /mnt/boot/efi
+mount /dev/sdaH /mnt/home
+swapon /dev/sdaS
+
+arch-chroot /mnt
+
+grub-install /dev/sda
+grub-mkconfig -o /boot/efi/grub/grub.cfg
+
+reboot
